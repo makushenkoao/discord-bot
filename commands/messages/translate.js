@@ -1,10 +1,11 @@
 const Discord = require('discord.js');
 const config = require('../../config.json');
+const { translate } = require('free-translate');
 
 module.exports = {
-    name: '8Ball',
-    aliases: ['Ball'],
-    description: 'Find out the truth.',
+    name: 'Translate',
+    aliases: ['TRSL'],
+    description: 'Clears chat messages.',
     memberVoice: false,
     botVoice: false,
     sameVoice: false,
@@ -12,12 +13,16 @@ module.exports = {
 
     async execute(client, message, args) {
         try {
-            const question = args.join(' ');
+            const from = args[0];
+            const to = args[1];
+            const messageForTranslate = args.slice(2, args.length).join(' ');
 
-            if (!question) {
-                const invalidAmountEmbed = new Discord.EmbedBuilder()
+            if (!from || !to || !messageForTranslate) {
+                const isValidArgs = new Discord.EmbedBuilder()
                     .setColor(config.ERROR_COLOR)
-                    .setDescription('Please ask a question.')
+                    .setDescription(
+                        'Enter text, enter the language you want to translate from and the language you want to translate into.',
+                    )
                     .setFooter({
                         text: `Command by ${message.author.tag}`,
                         iconURL: message.author.displayAvatarURL({
@@ -26,37 +31,24 @@ module.exports = {
                     });
 
                 return await message.channel.send({
-                    embeds: [invalidAmountEmbed],
+                    embeds: [isValidArgs],
                 });
             }
 
-            const answers = [
-                'Yes',
-                'Of course',
-                'Undoubtedly',
-                'Tt must be so',
-                'Possibly',
-                'Little chances',
-                'No',
-                'The stars say no',
-                'I can’t say',
-                'It’s unknown now',
-                'Ask Later',
-            ];
+            const translatedText = await translate(messageForTranslate, {
+                from,
+                to,
+            });
 
-            const answerIndex = Math.floor(
-                Math.random() * (answers.length + 1),
-            );
-
-            const clsEmbed = new Discord.EmbedBuilder()
+            const translateEmbed = new Discord.EmbedBuilder()
                 .setColor(config.MAIN_COLOR)
-                .setDescription(`- ${question}\n- ${answers[answerIndex]}`)
+                .setDescription(`- ${messageForTranslate}\n- ${translatedText}`)
                 .setFooter({
                     text: `Commanded by ${message.author.tag}`,
                     iconURL: message.author.displayAvatarURL({ size: 1024 }),
                 });
 
-            return await message.channel.send({ embeds: [clsEmbed] });
+            return await message.channel.send({ embeds: [translateEmbed] });
         } catch (error) {
             const errorEmbed = new Discord.EmbedBuilder()
                 .setColor(config.ERROR_COLOR)

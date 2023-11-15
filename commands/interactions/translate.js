@@ -1,14 +1,27 @@
 const Discord = require('discord.js');
 const config = require('../../config.json');
+const { translate } = require('free-translate');
 
 module.exports = {
     data: new Discord.SlashCommandBuilder()
-        .setName('8ball')
-        .setDescription('Find out the truth.')
+        .setName('translate')
+        .setDescription("Translate a language you don't understand.")
         .addStringOption((option) =>
             option
-                .setName('question')
-                .setDescription('Ask your question')
+                .setName('from')
+                .setDescription('From language. For example: "en"')
+                .setRequired(true),
+        )
+        .addStringOption((option) =>
+            option
+                .setName('to')
+                .setDescription('To language. For example: "ru"')
+                .setRequired(true),
+        )
+        .addStringOption((option) =>
+            option
+                .setName('text')
+                .setDescription('Text to be translated')
                 .setRequired(true),
         ),
     memberVoice: false,
@@ -20,35 +33,24 @@ module.exports = {
         await interaction.deferReply();
 
         try {
-            let question = interaction.options.getString('question');
+            let from = interaction.options.getString('from');
+            let to = interaction.options.getString('to');
+            let text = interaction.options.getString('text');
 
-            const answers = [
-                'Yes',
-                'Of course',
-                'Undoubtedly',
-                'Tt must be so',
-                'Possibly',
-                'Little chances',
-                'No',
-                'The stars say no',
-                'I can’t say',
-                'It’s unknown now',
-                'Ask Later',
-            ];
+            const translatedText = await translate(text, {
+                from,
+                to,
+            });
 
-            const answerIndex = Math.floor(
-                Math.random() * (answers.length + 1),
-            );
-
-            const clsEmbed = new Discord.EmbedBuilder()
+            const translateEmbed = new Discord.EmbedBuilder()
                 .setColor(config.MAIN_COLOR)
-                .setDescription(`- ${question}\n- ${answers[answerIndex]}`)
+                .setDescription(`- ${text}\n- ${translatedText}`)
                 .setFooter({
                     text: `Commanded by ${interaction.user.tag}`,
                     iconURL: interaction.user.displayAvatarURL({ size: 1024 }),
                 });
 
-            await interaction.editReply({ embeds: [clsEmbed] });
+            await interaction.editReply({ embeds: [translateEmbed] });
         } catch (error) {
             const errorEmbed = new Discord.EmbedBuilder()
                 .setColor(config.ERROR_COLOR)
