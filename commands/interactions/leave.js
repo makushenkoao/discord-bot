@@ -10,7 +10,7 @@ module.exports = {
   sameVoice: true,
   queueNeeded: false,
 
-  async execute(client, interaction, memberVC, botVC, queue) {
+  async execute(client, interaction) {
     await interaction.deferReply();
 
     try {

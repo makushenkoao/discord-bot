@@ -11,7 +11,7 @@ module.exports = {
   sameVoice: false,
   queueNeeded: false,
 
-  async execute(client, message, args) {
+  async execute(client, message) {
     try {
       const response = await axios.get(
         "https://v2.jokeapi.dev/joke/Any?type=single",

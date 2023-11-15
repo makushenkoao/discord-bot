@@ -10,7 +10,7 @@ module.exports = {
   sameVoice: true,
   queueNeeded: false,
 
-  async execute(client, interaction, memberVC, botVC, queue) {
+  async execute(client, interaction, memberVC, botVC) {
     await interaction.deferReply();
 
     if (memberVC && botVC && memberVC.id === botVC.id) {

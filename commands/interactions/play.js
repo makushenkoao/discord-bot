@@ -1,4 +1,3 @@
-const { SlashCommandBuilder } = require("discord.js");
 const Discord = require("discord.js");
 const config = require("../../config.json");
 
@@ -17,7 +16,7 @@ module.exports = {
   sameVoice: true,
   queueNeeded: false,
 
-  async execute(client, interaction, memberVC, botVC, queue) {
+  async execute(client, interaction, memberVC) {
     await interaction.deferReply({ ephemeral: true });
 
     const query = interaction.options.getString("query");

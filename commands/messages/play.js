@@ -10,7 +10,7 @@ module.exports = {
   sameVoice: true,
   queueNeeded: false,
 
-  async execute(client, message, args, cmd, memberVC, botVC, queue) {
+  async execute(client, message, args, cmd, memberVC) {
     const string = args.join(" ");
     if (!string) {
       const stringEmbed = new Discord.EmbedBuilder()

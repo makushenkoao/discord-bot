@@ -10,7 +10,7 @@ module.exports = {
   sameVoice: true,
   queueNeeded: true,
 
-  async execute(client, message, args, cmd, memberVC, botVC, queue) {
+  async execute(client, message, args) {
     if (!args[0] || isNaN(Number(args[0]))) {
       const noArgsEmbed = new Discord.EmbedBuilder()
         .setColor(config.ERROR_COLOR)

@@ -16,7 +16,7 @@ module.exports = {
   sameVoice: true,
   queueNeeded: true,
 
-  async execute(client, interaction, memberVC, botVC, queue) {
+  async execute(client, interaction) {
     await interaction.deferReply();
 
     const songId = interaction.options.getInteger("song-id");

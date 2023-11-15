@@ -10,7 +10,7 @@ module.exports = {
   sameVoice: false,
   queueNeeded: false,
 
-  async execute(client, message, args, cmd, memberVC, botVC, queue) {
+  async execute(client, message) {
     const helpEmbed = new Discord.EmbedBuilder()
       .setColor(config.MAIN_COLOR)
       .setAuthor({

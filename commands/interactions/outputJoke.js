@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const func = require("../../utils/functions");
 const config = require("../../config.json");
 const axios = require("axios");
 
@@ -12,7 +11,7 @@ module.exports = {
   sameVoice: false,
   queueNeeded: false,
 
-  async execute(client, interaction, memberVC, botVC, queue) {
+  async execute(client, interaction) {
     await interaction.deferReply();
 
     try {

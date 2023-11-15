@@ -29,7 +29,7 @@ module.exports = {
           iconURL: interaction.user.displayAvatarURL({ size: 1024 }),
         });
 
-      return await message.editReply({ embeds: [autoplayEmbed] });
+      return await interaction.editReply({ embeds: [autoplayEmbed] });
     } catch (error) {
       const errorEmbed = new Discord.EmbedBuilder()
         .setColor(config.ERROR_COLOR)
