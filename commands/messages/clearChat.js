@@ -31,7 +31,7 @@ module.exports = {
             }
 
             const messages = await message.channel.messages.fetch({
-                limit: amount + 1,
+                limit: amount,
             });
 
             await message.channel.bulkDelete(messages);

@@ -39,7 +39,7 @@ module.exports = {
             }
 
             const messages = await interaction.channel.messages.fetch({
-                limit: amount + 1,
+                limit: amount,
             });
 
             const clsEmbed = new Discord.EmbedBuilder()

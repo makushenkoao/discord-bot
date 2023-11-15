@@ -28,7 +28,7 @@ module.exports = {
                 ).join('\n\n'),
             )
             .setFooter({
-                text: 'Developed by iTz Arshia#7650 https://github.com/iTzArshia/iTz-DJ',
+                text: 'Developed by @popcorn',
             });
 
         return await message.reply({ embeds: [helpEmbed] });
