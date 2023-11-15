@@ -2,9 +2,9 @@ const Discord = require("discord.js");
 const config = require("../../config.json");
 
 module.exports = {
-  name: "Cls",
-  aliases: ["Clear", "CL"],
-  description: "Clears chat messages.",
+  name: "8Ball",
+  aliases: ["Ball"],
+  description: "Find out the truth.",
   memberVoice: false,
   botVoice: false,
   sameVoice: false,
@@ -12,12 +12,12 @@ module.exports = {
 
   async execute(client, message, args) {
     try {
-      let amount = parseInt(args[0]) || 100;
+      const question = args.join(' ');
 
-      if (amount < 1 || amount > 100) {
+      if (!question) {
         const invalidAmountEmbed = new Discord.EmbedBuilder()
           .setColor(config.ERROR_COLOR)
-          .setDescription("The amount must be between 1 and 100.")
+          .setDescription("Please ask a question.")
           .setFooter({
             text: `Command by ${message.author.tag}`,
             iconURL: message.author.displayAvatarURL({ size: 1024 }),
@@ -26,13 +26,25 @@ module.exports = {
         return await message.channel.send({ embeds: [invalidAmountEmbed] });
       }
 
-      const messages = await message.channel.messages.fetch({ limit: amount + 1 });
+      const answers = [
+        "Yes",
+        "Of course",
+        "Undoubtedly",
+        "Tt must be so",
+        "Possibly",
+        "Little chances",
+        "No",
+        "The stars say no",
+        "I can’t say",
+        "It’s unknown now",
+        "Ask Later",
+      ];
 
-      await message.channel.bulkDelete(messages);
+      const answerIndex = Math.floor(Math.random() * (answers.length + 1));
 
       const clsEmbed = new Discord.EmbedBuilder()
         .setColor(config.MAIN_COLOR)
-        .setDescription(`Deleted ${amount} messages.`)
+        .setDescription(`- ${question}\n- ${answers[answerIndex]}`)
         .setFooter({
           text: `Commanded by ${message.author.tag}`,
           iconURL: message.author.displayAvatarURL({ size: 1024 }),

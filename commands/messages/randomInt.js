@@ -2,9 +2,9 @@ const Discord = require("discord.js");
 const config = require("../../config.json");
 
 module.exports = {
-  name: "Cls",
-  aliases: ["Clear", "CL"],
-  description: "Clears chat messages.",
+  name: "Random",
+  aliases: ["RNDM", "RM", "Rand"],
+  description: "Random integer.",
   memberVoice: false,
   botVoice: false,
   sameVoice: false,
@@ -12,27 +12,14 @@ module.exports = {
 
   async execute(client, message, args) {
     try {
-      let amount = parseInt(args[0]) || 100;
+      const from = parseInt(args[0]) || 1;
+      const to = parseInt(args[1]) || 100;
 
-      if (amount < 1 || amount > 100) {
-        const invalidAmountEmbed = new Discord.EmbedBuilder()
-          .setColor(config.ERROR_COLOR)
-          .setDescription("The amount must be between 1 and 100.")
-          .setFooter({
-            text: `Command by ${message.author.tag}`,
-            iconURL: message.author.displayAvatarURL({ size: 1024 }),
-          });
-
-        return await message.channel.send({ embeds: [invalidAmountEmbed] });
-      }
-
-      const messages = await message.channel.messages.fetch({ limit: amount + 1 });
-
-      await message.channel.bulkDelete(messages);
+      const randomInt = Math.floor(Math.random() * (to - from + 1)) + from;
 
       const clsEmbed = new Discord.EmbedBuilder()
         .setColor(config.MAIN_COLOR)
-        .setDescription(`Deleted ${amount} messages.`)
+        .setDescription(`Random integer - ${randomInt}`)
         .setFooter({
           text: `Commanded by ${message.author.tag}`,
           iconURL: message.author.displayAvatarURL({ size: 1024 }),

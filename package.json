@@ -1,25 +1,34 @@
 {
-  "name": "oma",
-  "version": "1.0.0",
-  "description": "Discord Music Bot",
-  "main": "index.js",
-  "scripts": {
-    "start": "node register.js & node index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@discordjs/opus": "^0.8.0",
-    "@discordjs/voice": "^0.15.0",
-    "@distube/deezer": "^1.0.0",
-    "@distube/soundcloud": "^1.3.0",
-    "@distube/spotify": "^1.5.1",
-    "@distube/yt-dlp": "^1.1.3",
-    "axios": "^1.6.1",
-    "discord.js": "^14.8.0",
-    "distube": "^4.0.4",
-    "ffmpeg-static": "^4.4.1",
-    "libsodium-wrappers": "^0.7.10"
-  }
+    "name": "oma",
+    "version": "1.0.0",
+    "description": "Discord Music Bot",
+    "main": "index.js",
+    "scripts": {
+        "start": "node register.js & node index.js",
+        "lint": "eslint . --ext .js",
+        "lint:fix": "eslint --fix . --ext .js",
+        "prettier": "npx prettier --write **/*.{js,json}"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@discordjs/opus": "^0.8.0",
+        "@discordjs/voice": "^0.15.0",
+        "@distube/deezer": "^1.0.0",
+        "@distube/soundcloud": "^1.3.0",
+        "@distube/spotify": "^1.5.1",
+        "@distube/yt-dlp": "^1.1.3",
+        "axios": "^1.6.1",
+        "discord.js": "^14.8.0",
+        "distube": "^4.0.4",
+        "ffmpeg-static": "^4.4.1",
+        "libsodium-wrappers": "^0.7.10"
+    },
+    "devDependencies": {
+        "eslint": "^8.53.0",
+        "eslint-plugin-import": "^2.29.0",
+        "eslint-plugin-node": "^11.1.0",
+        "prettier": "^3.1.0"
+    }
 }

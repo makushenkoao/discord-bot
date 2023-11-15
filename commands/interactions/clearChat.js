@@ -24,23 +24,32 @@ module.exports = {
       let amount = interaction.options.getInteger("amount") || 100;
 
       if (amount < 1 || amount > 100) {
-        return interaction.editReply("The amount must be between 1 and 100.");
+        const invalidAmountEmbed = new Discord.EmbedBuilder()
+          .setColor(config.ERROR_COLOR)
+          .setDescription("The amount must be between 1 and 100.")
+          .setFooter({
+            text: `Command by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL({ size: 1024 }),
+          });
+
+        return await interaction.editReply({ embeds: [invalidAmountEmbed] });
       }
 
       const messages = await interaction.channel.messages.fetch({
-        limit: amount,
+        limit: amount + 1,
       });
-      await interaction.channel.bulkDelete(messages);
 
       const clsEmbed = new Discord.EmbedBuilder()
         .setColor(config.MAIN_COLOR)
-        .setDescription(`Cleared ${amount} messages.`)
+        .setDescription(`Deleted ${amount} messages.`)
         .setFooter({
           text: `Commanded by ${interaction.user.tag}`,
           iconURL: interaction.user.displayAvatarURL({ size: 1024 }),
         });
 
-      return await interaction.editReply({ embeds: [clsEmbed] });
+      // TODO - Swap output and deletion, find a suitable output method
+      await interaction.editReply({ embeds: [clsEmbed] });
+      return await interaction.channel.bulkDelete(messages);
     } catch (error) {
       const errorEmbed = new Discord.EmbedBuilder()
         .setColor(config.ERROR_COLOR)

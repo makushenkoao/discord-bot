@@ -1,12 +1,16 @@
 const Discord = require("discord.js");
-const func = require("../../utils/functions");
 const config = require("../../config.json");
-const axios = require("axios");
 
 module.exports = {
   data: new Discord.SlashCommandBuilder()
-    .setName("joke")
-    .setDescription("Laugh"),
+    .setName("8ball")
+    .setDescription("Find out the truth.")
+    .addStringOption((option) =>
+      option
+        .setName("question")
+        .setDescription("Ask your question")
+        .setRequired(true),
+    ),
   memberVoice: false,
   botVoice: false,
   sameVoice: false,
@@ -16,21 +20,33 @@ module.exports = {
     await interaction.deferReply();
 
     try {
-      const response = await axios.get(
-        "https://v2.jokeapi.dev/joke/Any?type=single",
-      );
+      let question = interaction.options.getString("question");
 
-      const joke = response.data.joke;
+      const answers = [
+        "Yes",
+        "Of course",
+        "Undoubtedly",
+        "Tt must be so",
+        "Possibly",
+        "Little chances",
+        "No",
+        "The stars say no",
+        "I can’t say",
+        "It’s unknown now",
+        "Ask Later",
+      ];
+
+      const answerIndex = Math.floor(Math.random() * (answers.length + 1));
 
       const clsEmbed = new Discord.EmbedBuilder()
         .setColor(config.MAIN_COLOR)
-        .setDescription(`Joke \n${joke}`)
+        .setDescription(`- ${question}\n- ${answers[answerIndex]}`)
         .setFooter({
           text: `Commanded by ${interaction.user.tag}`,
           iconURL: interaction.user.displayAvatarURL({ size: 1024 }),
         });
 
-      return await interaction.editReply({ embeds: [clsEmbed] });
+      await interaction.editReply({ embeds: [clsEmbed] });
     } catch (error) {
       const errorEmbed = new Discord.EmbedBuilder()
         .setColor(config.ERROR_COLOR)

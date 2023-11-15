@@ -1,12 +1,17 @@
 const Discord = require("discord.js");
 const func = require("../../utils/functions");
 const config = require("../../config.json");
-const axios = require("axios");
 
 module.exports = {
   data: new Discord.SlashCommandBuilder()
-    .setName("joke")
-    .setDescription("Laugh"),
+    .setName("random")
+    .setDescription("Random integer.")
+    .addIntegerOption((option) =>
+      option.setName("from").setDescription("To integer").setRequired(false),
+    )
+    .addIntegerOption((option) =>
+      option.setName("to").setDescription("To integer").setRequired(false),
+    ),
   memberVoice: false,
   botVoice: false,
   sameVoice: false,
@@ -16,21 +21,20 @@ module.exports = {
     await interaction.deferReply();
 
     try {
-      const response = await axios.get(
-        "https://v2.jokeapi.dev/joke/Any?type=single",
-      );
+      const from = interaction.options.getInteger("from") || 1;
+      const to = interaction.options.getInteger("to") || 100;
 
-      const joke = response.data.joke;
+      const randomInt = Math.floor(Math.random() * (to - from + 1)) + from;
 
       const clsEmbed = new Discord.EmbedBuilder()
         .setColor(config.MAIN_COLOR)
-        .setDescription(`Joke \n${joke}`)
+        .setDescription(`Random integer - ${randomInt}`)
         .setFooter({
           text: `Commanded by ${interaction.user.tag}`,
           iconURL: interaction.user.displayAvatarURL({ size: 1024 }),
         });
 
-      return await interaction.editReply({ embeds: [clsEmbed] });
+      await interaction.editReply({ embeds: [clsEmbed] });
     } catch (error) {
       const errorEmbed = new Discord.EmbedBuilder()
         .setColor(config.ERROR_COLOR)

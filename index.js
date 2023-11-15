@@ -13,10 +13,48 @@ const config = require("./config.json");
 const client = new Discord.Client({
   intents: [
     Discord.GatewayIntentBits.Guilds,
+    Discord.GatewayIntentBits.GuildMembers,
+    Discord.GatewayIntentBits.GuildPresences,
     Discord.GatewayIntentBits.GuildVoiceStates,
     Discord.GatewayIntentBits.GuildMessages,
     Discord.GatewayIntentBits.MessageContent,
   ],
+});
+
+client.on("guildMemberAdd", (member) => {
+  const welcomeChannel = member.guild.channels.cache.find(
+    (channel) => channel.name === "welcome",
+  );
+
+  if (welcomeChannel) {
+    const welcomeEmbed = new Discord.EmbedBuilder()
+      .setColor(config.MAIN_COLOR)
+      .setTitle(`Welcome to the server, ${member.user.tag}!`)
+      .setDescription("We are glad you joined us.")
+      .setThumbnail(member.user.displayAvatarURL({ size: 1024 }))
+      .setFooter({ text: "Enjoy your stay!" })
+      .setTimestamp();
+
+    welcomeChannel.send({ embeds: [welcomeEmbed] });
+  }
+});
+
+client.on("guildMemberRemove", (member) => {
+  const welcomeChannel = member.guild.channels.cache.find(
+    (channel) => channel.name === "welcome",
+  );
+
+  if (welcomeChannel) {
+    const goodbyeEmbed = new Discord.EmbedBuilder()
+      .setColor(config.MAIN_COLOR)
+      .setTitle(`Goodbye, ${member.user.tag}!`)
+      .setDescription("We're sorry to see you go.")
+      .setThumbnail(member.user.displayAvatarURL({ size: 1024 }))
+      .setFooter({ text: "We hope to see you again!" })
+      .setTimestamp();
+
+    welcomeChannel.send({ embeds: [goodbyeEmbed] });
+  }
 });
 
 // Event Handler

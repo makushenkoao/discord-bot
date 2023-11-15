@@ -75,23 +75,20 @@ const volumeUp = new Discord.ButtonBuilder()
     .setEmoji('🔊')
     .setStyle(Discord.ButtonStyle.Secondary);
 
+const row2 = new Discord.ActionRowBuilder().addComponents([
+    loopSongToggle,
+    previousSong,
+    paunseUnpause,
+    nextSong,
+    loopQueueToggle,
+]);
+const row3 = new Discord.ActionRowBuilder().addComponents([
+    volumeDown,
+    backward,
+    stop,
+    forward,
+    volumeUp,
+]);
 
-const row2 = new Discord.ActionRowBuilder()
-    .addComponents([
-        loopSongToggle,
-        previousSong,
-        paunseUnpause,
-        nextSong,
-        loopQueueToggle
-    ]);
-const row3 = new Discord.ActionRowBuilder()
-    .addComponents([
-        volumeDown,
-        backward,
-        stop,
-        forward,
-        volumeUp
-    ]);
-    
 module.exports.row2 = row2;
 module.exports.row3 = row3;
