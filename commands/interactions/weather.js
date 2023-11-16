@@ -27,10 +27,32 @@ module.exports = {
                 `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${config.WEATHER_API_KEY}`,
             );
 
+            const timestamp = response.data.dt + response.data.timezone;
+            const date = new Date(timestamp * 1000);
+
+            const timeZoneOffset = response.data.timezone / 3600;
+            const timeZoneString =
+                timeZoneOffset >= 0
+                    ? `UTC+${timeZoneOffset}`
+                    : `UTC${timeZoneOffset}`;
+
+            const formattedTime = new Intl.DateTimeFormat('en-US', {
+                timeZone: `Etc/GMT${
+                    timeZoneOffset >= 0 ? '+' : ''
+                }${timeZoneOffset}`,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false,
+            }).format(date);
+
             const weatherEmbed = new Discord.EmbedBuilder()
                 .setColor(config.MAIN_COLOR)
                 .setTitle(
                     `Weather in ${response.data.name}, ${response.data.sys.country}`,
+                )
+                .setThumbnail(
+                    `http://openweathermap.org/img/w/${response.data.weather[0].icon}.png`,
                 )
                 .addFields(
                     {
@@ -40,7 +62,7 @@ module.exports = {
                         )}°C`,
                     },
                     {
-                        name: 'Weather :sunny:',
+                        name: 'Weather :earth_americas:',
                         value: response.data.weather[0].description,
                     },
                     {
@@ -54,6 +76,10 @@ module.exports = {
                     {
                         name: 'Visibility :fog:',
                         value: `${response.data.visibility} meters`,
+                    },
+                    {
+                        name: 'Current Time :clock:',
+                        value: `${formattedTime} ${timeZoneString}`,
                     },
                 )
                 .setFooter({
