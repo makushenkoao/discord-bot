@@ -3,7 +3,7 @@ const func = require('../../utils/functions');
 const config = require('../../config.json');
 
 module.exports = {
-    name: 'volume',
+    name: 'Volume',
     aliases: ['V', 'Vol', 'Set', 'SetVolume'],
     description: 'Sets the player volume.',
     memberVoice: true,
