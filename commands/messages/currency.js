@@ -19,7 +19,7 @@ module.exports = {
 
             if (!from || !to || !amount) {
                 throw new Error(
-                    'Usage: !currency <From conver> <To convert> <Amount>',
+                    'Usage: !currency <From convert> <To convert> <Amount>',
                 );
             }
 
