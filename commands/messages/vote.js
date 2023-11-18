@@ -16,10 +16,14 @@ module.exports = {
             const [question, optionsString] = combinedArgs.split('?');
 
             if (!optionsString || !question) {
-                throw new Error('Invalid command format. Please provide a question and options.');
+                throw new Error(
+                    'Invalid command format. Please provide a question and options.',
+                );
             }
 
-            const options = optionsString.split(',').map(option => option.trim());
+            const options = optionsString
+                .split(',')
+                .map((option) => option.trim());
 
             const voteEmbed = new Discord.EmbedBuilder()
                 .setColor(config.MAIN_COLOR)
@@ -27,14 +31,18 @@ module.exports = {
                 .setDescription(question)
                 .addFields({
                     name: 'Options',
-                    value: options.map((option, index) => `${index + 1}. ${option}`).join('\n'),
+                    value: options
+                        .map((option, index) => `${index + 1}. ${option}`)
+                        .join('\n'),
                 })
                 .setFooter({
                     text: `Initiated by ${message.author.tag}`,
                     iconURL: message.author.displayAvatarURL({ size: 1024 }),
                 });
 
-            const voteMessage = await message.channel.send({ embeds: [voteEmbed] });
+            const voteMessage = await message.channel.send({
+                embeds: [voteEmbed],
+            });
 
             for (let i = 1; i <= options.length; i++) {
                 await voteMessage.react(`${i}\u20e3`);
