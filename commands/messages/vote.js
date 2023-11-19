@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const config = require('../../config.json');
 
 module.exports = {
-    name: 'vote',
+    name: 'Vote',
     aliases: ['v'],
     description: 'Starts a vote.',
     memberVoice: false,

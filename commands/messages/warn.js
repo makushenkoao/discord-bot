@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const config = require('../../config.json');
 
 module.exports = {
-    name: 'warn',
+    name: 'Warn',
     aliases: [],
     description: 'Warning to user.',
     memberVoice: false,
