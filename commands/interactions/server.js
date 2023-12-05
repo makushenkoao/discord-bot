@@ -18,7 +18,9 @@ module.exports = {
             const serverOwner = owner ? owner.tag : 'Unknown';
             const roles = guild.roles.cache.map((role) => role.name).join(', ');
             const verificationLevel = String(guild.verificationLevel);
-            const serverIcon = guild.iconURL({ dynamic: true, size: 1024 }) || 'No Server Icon';
+            const serverIcon =
+                guild.iconURL({ dynamic: true, size: 1024 }) ||
+                'No Server Icon';
 
             const infoEmbed = new Discord.EmbedBuilder()
                 .setColor(config.MAIN_COLOR)
