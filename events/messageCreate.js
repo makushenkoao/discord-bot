@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 const config = require('../config.json');
 
 module.exports = async (client, message) => {
+    // if (message.channelId !== config.OCTAVIA_CHANNEL_ID) return
+
     if (
         message.channel.type === Discord.ChannelType.DM ||
         message.system ||

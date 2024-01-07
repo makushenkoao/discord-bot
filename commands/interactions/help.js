@@ -30,7 +30,7 @@ module.exports = {
                 ).join('\n\n'),
             )
             .setFooter({
-                text: 'Developed by @popcorn',
+                text: 'Developed by @makushenkoao',
             });
 
         return await interaction.editReply({ embeds: [helpEmbed] });

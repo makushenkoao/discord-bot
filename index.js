@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const tmi = require('tmi.js')
 const { DisTube } = require('distube');
 const { SoundCloudPlugin } = require('@distube/soundcloud');
 const { SpotifyPlugin } = require('@distube/spotify');
@@ -20,6 +21,27 @@ const client = new Discord.Client({
         Discord.GatewayIntentBits.MessageContent,
     ],
 });
+
+const clientTwitch = new tmi.client({
+    options: {
+        debug: true,
+    },
+    identity: {
+        username: config.BOT_USERNAME,
+        password: config.BOT_O_AUTH,
+    },
+    channels: config.CHANNELS,
+});
+
+clientTwitch.on("connected", (address, port) => {
+    console.log(`connected to ${address}:${port}`);
+    // clientTwitch.say(
+    //   config.NAME,
+    //   'Hello viewers! The bot from @makushenkoao has been launched.',
+    // );
+});
+
+clientTwitch.connect().then(() => console.log("Bot connected"));
 
 client.on('guildMemberAdd', (member) => {
     const welcomeChannel = member.guild.channels.cache.find(

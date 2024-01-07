@@ -28,7 +28,7 @@ module.exports = {
                 ).join('\n\n'),
             )
             .setFooter({
-                text: 'Developed by @popcorn',
+                text: 'Developed by @makushenkoao',
             });
 
         return await message.reply({ embeds: [helpEmbed] });

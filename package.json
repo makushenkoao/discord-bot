@@ -19,12 +19,13 @@
         "@distube/soundcloud": "^1.3.0",
         "@distube/spotify": "^1.5.1",
         "@distube/yt-dlp": "^1.1.3",
-        "axios": "^1.6.1",
+        "axios": "^1.6.5",
         "discord.js": "^14.8.0",
         "distube": "^4.0.4",
         "ffmpeg-static": "^4.4.1",
         "free-translate": "^0.6.1",
-        "libsodium-wrappers": "^0.7.10"
+        "libsodium-wrappers": "^0.7.10",
+        "tmi.js": "^1.8.5"
     },
     "devDependencies": {
         "eslint": "^8.53.0",

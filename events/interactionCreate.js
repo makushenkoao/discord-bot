@@ -1,4 +1,7 @@
+// const config = require('../config.json');
 module.exports = async (client, interaction) => {
+    // if (interaction.channelId !== config.OCTAVIA_CHANNEL_ID) return;
+
     if (!interaction.isChatInputCommand()) return;
 
     if (
